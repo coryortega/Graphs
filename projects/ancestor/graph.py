@@ -34,7 +34,16 @@ class Graph:
             return self.vertices[vertex_id]
         else:
             return None
-
+            
+                
+    def vertex_exists(self, vertex_id):
+        """
+        Return validity of vertex_id in graph instance
+        """
+        if vertex_id in self.vertices:
+            return True
+        else:
+            return False
 
     def bft(self, starting_vertex):
         """
