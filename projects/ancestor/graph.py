@@ -81,14 +81,21 @@ class Graph:
         qq.push([starting_vertex])
         # Create a set of traversed vertices
         visited = set()
+        ancestor_path = [starting_vertex]
         # While queue is not empty:
         while qq.size() > 0:
             # dequeue/pop the first vertex
             path = qq.pop()
+            if len(path) > len(ancestor_path):
+                ancestor_path = path
+            if len(path) == len(ancestor_path):
+                if path[-1] < ancestor_path[-1]:
+                    ancestor_path = path
+
             # if not visited
             if path[-1] not in visited:
                 # DO THE THING!!!!!!!
-                print(path[-1])
+                # print(path[-1])
                 # mark as visited
                 visited.add(path[-1])
                 # enqueue all neightbors
@@ -96,6 +103,8 @@ class Graph:
                     new_path = list(path)
                     new_path.append(next_vert)
                     qq.push(new_path)
+
+        return ancestor_path
 
     def dft_recursive(self, starting_vertex, visited=set()):
         """

@@ -14,25 +14,6 @@ def earliest_ancestor(ancestors, starting_node):
 
     graph = Graph()
 
-    graph.add_vertex(10)
-    graph.add_vertex(1)
-    graph.add_vertex(2)
-    graph.add_vertex(4)
-    graph.add_vertex(11)
-    graph.add_vertex(3)
-    graph.add_vertex(5)
-    graph.add_vertex(8)
-    graph.add_edge(10, 1)
-    graph.add_edge(1, 3)
-    graph.add_edge(2, 3)
-    graph.add_edge(4, 5)
-    graph.add_edge(4, 8)
-    graph.add_edge(11, 8)
-    graph.add_edge(3, 6)
-    graph.add_edge(5, 6)
-    graph.add_edge(5, 7)
-    graph.add_edge(8, 9)
-
     # for pair in ancestors:
     #     parent = pair[0]
     #     child = pair[1]
@@ -48,12 +29,26 @@ def earliest_ancestor(ancestors, starting_node):
     #     child = pair[1]
     #     graph.add_edge(parent, child)
 
+    for pair in ancestors:
+        # (parent, child)
+        parent = pair[0]
+        child = pair[1]
+        # adding parent once as a vertex
+        if parent not in graph.vertices:
+            graph.add_vertex(parent)
+        # adding children as vertex, even though some wont have edges
+        if child not in graph.vertices:
+            graph.add_vertex(child)
+        # child, parent from bottom to top
+        graph.add_edge(child, parent)
+        
+    if len(graph.vertices[starting_node]) == 0:
+        print("this", graph.vertices[starting_node])
+        return -1
+    else:
+        print("here", graph.vertices)
+        earliest_ancestor_path = graph.dft(starting_node)
+        return earliest_ancestor_path[-1]
 
-
-    print(graph.vertices)
 
     graph.dfs_recursive(starting_node, 6)
-
-
-
-    print(ancestors, starting_node)
