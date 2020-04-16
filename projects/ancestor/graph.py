@@ -89,7 +89,9 @@ class Graph:
             if len(path) > len(ancestor_path):
                 ancestor_path = path
             if len(path) == len(ancestor_path):
+                # returning smallest ID value
                 if path[-1] < ancestor_path[-1]:
+                    print(path[-1], ancestor_path[-1])
                     ancestor_path = path
 
             # if not visited
